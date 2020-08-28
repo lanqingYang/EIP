@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8" ?> <!DOCTYPE mapper  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.eip.dao.KindergartenMapper">
+
+    <resultMap id="KindergartenResultMap" type="com.eip.pojo.Kindergarten">
+        <id column="KId" property="KId"/>
+        <result column="KName" property="KName"/>
+        <result column="KAddress" property="KAddress"/>
+        <result column="KDescription" property="KDescription"/>
+        <result column="KStuffs" property="KStuffs"/>
+        <result column="KTeachers" property="KTeachers"/>
+        <result column="KCapacity" property="KCapacity"/>
+        <result column="KCapacityYears" property="KCapacityYears"/>
+        <result column="KPointX" property="KPointX"/>
+        <result column="KPointY" property="KPointY"/>
+    </resultMap>
+
+    <!--List<Kindergarten> selectKindergartens();-->
+    <select id="selectKindergartens" resultMap="KindergartenResultMap">
+        select * from tb_kindergarten
+    </select>
+
+    <!--Kindergarten selectKindergartenById(Integer id);-->
+    <select id="selectKindergartenById" resultMap="KindergartenResultMap">
+        select * from tb_kindergarten where KId=#{id}
+    </select>
+
+    <!--Integer updateKindergartenByObj(Kindergarten kindergarten);-->
+    <update id="updateKindergartenByObj">
+        update tb_kindergarten set
+        <if test="KName!=null and KName !=''">
+            KName = #{KName},
+        </if>
+        KAddress = #{KAddress},
+        KDescription = #{KDescription},
+        KStuffs = #{KStuffs},
+        KTeachers = #{KTeachers},
+        KCapacity = #{KCapacity},
+        KCapacityYears = #{KCapacityYears},
+        KPointX = #{KPointX},
+        KPointY = #{KPointY}
+        where KId=#{KId}
+    </update>
+
+    <!--Integer insertKindergartenByObj(Kindergarten kindergarten);-->
+    <insert id="insertKindergartenByObj">
+        insert into tb_kindergarten(KName,KAddress,KDescription,KStuffs,KTeachers,KCapacity,KCapacityYears,KPointX,KPointY)
+        values(#{KName},#{KAddress},#{KDescription},#{KStuffs},#{KTeachers},#{KCapacity},#{KCapacityYears},#{KPointX},#{KPointY})
+    </insert>
+
+    <!--Boolean deleteKindergartenById(Integer id);-->
+    <delete id="deleteKindergartenById">
+        delete from tb_kindergarten where KId = #{id}
+    </delete>
+
+    <!--List<Kindergarten> selectKindergartensByName(String name);-->
+    <select id="selectKindergartensByName" resultMap="KindergartenResultMap">
+        select * from tb_kindergarten
+        where 1=1
+        <if test="name!=null and name!=''">
+        and KName like concat('%',#{name},'%')
+        </if>
+    </select>
+</mapper>

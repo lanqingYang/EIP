@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8" ?> <!DOCTYPE mapper  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.eip.dao.MiddleSchoolMapper">
+    <resultMap id="MiddleSchoolResultMap" type="com.eip.pojo.MiddleSchool">
+        <id column="MSId" property="MSId"/>
+        <result column="MSName" property="MSName"/>
+        <result column="MSAddress" property="MSAddress"/>
+        <result column="MSDescription" property="MSDescription"/>
+        <result column="MSStuffs" property="MSStuffs"/>
+        <result column="MSTeachers" property="MSTeachers"/>
+        <result column="MSCapacity" property="MSCapacity"/>
+        <result column="MSCapacityYears" property="MSCapacityYears"/>
+        <result column="MSPointX" property="MSPointX"/>
+        <result column="MSPointY" property="MSPointY"/>
+    </resultMap>
+
+    <!--List<MiddleSchool> selectMiddleSchools();-->
+    <select id="selectMiddleSchools" resultMap="MiddleSchoolResultMap">
+        select * from tb_middleschool
+    </select>
+
+    <!--MiddleSchool selectMiddleSchoolById(Integer id);-->
+    <select id="selectMiddleSchoolById" resultMap="MiddleSchoolResultMap">
+        select * from tb_middleschool where MSId=#{id}
+    </select>
+
+    <!--Integer updateMiddleSchoolByObj(MiddleSchool middleSchool);-->
+    <update id="updateMiddleSchoolByObj">
+        update tb_middleschool set
+        <if test="MSName!=null and MSName !=''">
+            MSName = #{MSName},
+        </if>
+        MSAddress = #{MSAddress},
+        MSDescription = #{MSDescription},
+        MSStuffs = #{MSStuffs},
+        MSTeachers = #{MSTeachers},
+        MSCapacity = #{MSCapacity},
+        MSCapacityYears = #{MSCapacityYears},
+        MSPointX = #{MSPointX},
+        MSPointY = #{MSPointY}
+        where MSId=#{MSId}
+    </update>
+
+    <!--Integer insertMiddleSchoolByObj(MiddleSchool middleSchool);-->
+    <insert id="insertMiddleSchoolByObj">
+        insert into tb_middleschool(MSName,MSAddress,MSDescription,MSStuffs,MSTeachers,MSCapacity,MSCapacityYears,MSPointX,MSPointY)
+        values(#{MSName},#{MSAddress},#{MSDescription},#{MSStuffs},#{MSTeachers},#{MSCapacity},#{MSCapacityYears},#{MSPointX},#{MSPointY})
+    </insert>
+
+    <!--Boolean deleteMiddleSchoolById(Integer id);-->
+    <delete id="deleteMiddleSchoolById">
+        delete from tb_middleschool where MSId = #{id}
+    </delete>
+
+    <!--List<MiddleSchool> selectMiddleSchoolsByName(String name);-->
+    <select id="selectMiddleSchoolsByName" resultMap="MiddleSchoolResultMap">
+        select * from tb_middleschool
+        where MSName like concat('%',#{name},'%')
+    </select>
+</mapper>

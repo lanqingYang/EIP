@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8" ?> <!DOCTYPE mapper  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.eip.dao.TipOffMapper">
+    <resultMap id="TipOffResultMap" type="com.eip.pojo.TipOff">
+        <id column="id" property="id"/>
+        <result column="name" property="name"/>
+        <result column="address" property="address"/>
+        <result column="reason" property="reason"/>
+        <result column="qualify" property="qualify"/>
+    </resultMap>
+    <!--List<TipOff> selectAllTipOff();-->
+    <select id="selectAllTipOff" resultMap="TipOffResultMap">
+        select * from tb_tipOff
+    </select>
+
+    <!--TipOff selectTipOffById(Integer id);-->
+    <select id="selectTipOffById" resultMap="TipOffResultMap">
+        select * from tb_tipOff where id=#{id}
+    </select>
+
+    <!--Integer insertTipOffByObj(TipOff notice);-->
+    <insert id="insertTipOffByObj">
+        insert into tb_tipOff(name,address,reason,qualify)
+        values(#{name},#{address},#{reason},#{qualify})
+    </insert>
+
+    <!--Integer updateTipOffByObj(TipOff notice);-->
+    <update id="updateTipOffByObj">
+        update tb_tipOff set
+        name=#{name},
+        address=#{address},
+        reason=#{reason},
+        qualify=#{qualify}
+        where id=#{id}
+    </update>
+
+    <!--Boolean deleteTipOffById(Integer id);-->
+    <delete id="deleteTipOffById">
+        delete from tb_tipOff where id=#{id}
+    </delete>
+</mapper>

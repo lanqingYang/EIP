@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8" ?> <!DOCTYPE mapper  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.eip.dao.CollegeMapper">
+    <resultMap id="CollegeResultMap" type="com.eip.pojo.College">
+        <id column="CId" property="CId"/>
+        <result column="CName" property="CName"/>
+        <result column="CAddress" property="CAddress"/>
+        <result column="CDescription" property="CDescription"/>
+        <result column="CStuffs" property="CStuffs"/>
+        <result column="CTeachers" property="CTeachers"/>
+        <result column="CCapacity" property="CCapacity"/>
+        <result column="CCapacityYears" property="CCapacityYears"/>
+        <result column="CPointX" property="CPointX"/>
+        <result column="CPointY" property="CPointY"/>
+    </resultMap>
+
+    <!--List<College> selectColleges();-->
+    <select id="selectColleges" resultMap="CollegeResultMap">
+        select * from tb_college
+    </select>
+
+    <!--College selectCollegeById(Integer id);-->
+    <select id="selectCollegeById" resultMap="CollegeResultMap">
+        select * from tb_college where CId=#{id}
+    </select>
+
+    <!--Integer updateCollegeByObj(College college);-->
+    <update id="updateCollegeByObj">
+        update tb_college set
+        <if test="CName!=null and CName !=''">
+            CName = #{CName},
+        </if>
+        CAddress = #{CAddress},
+        CDescription = #{CDescription},
+        CStuffs = #{CStuffs},
+        CTeachers = #{CTeachers},
+        CCapacity = #{CCapacity},
+        CCapacityYears = #{CCapacityYears},
+        CPointX = #{CPointX},
+        CPointY = #{CPointY}
+        where CId=#{CId}
+    </update>
+
+    <!--Integer insertCollegeByObj(College college);-->
+    <insert id="insertCollegeByObj">
+        insert into tb_college(CName,CAddress,CDescription,CStuffs,CTeachers,CCapacity,CCapacityYears,CPointX,CPointY)
+        values(#{CName},#{CAddress},#{CDescription},#{CStuffs},#{CTeachers},#{CCapacity},#{CCapacityYears},#{CPointX},#{CPointY})
+    </insert>
+
+    <!--Boolean deleteCollegeById(Integer id);-->
+    <delete id="deleteCollegeById">
+        delete from tb_college where CId = #{id}
+    </delete>
+
+    <!--List<College> selectCollegesByName(String name);-->
+    <select id="selectCollegesByName" resultMap="CollegeResultMap">
+        select * from tb_college
+        where CName like concat('%',#{name},'%')
+    </select>
+</mapper>

@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8" ?> <!DOCTYPE mapper  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.eip.dao.NoticeMapper">
+    <resultMap id="NoticeResultMap" type="com.eip.pojo.Notice">
+        <id column="id" property="id"/>
+        <result column="username" property="username"/>
+        <result column="date" property="date"/>
+        <result column="title" property="title"/>
+        <result column="content" property="content"/>
+        <result column="qualify" property="qualify"/>
+    </resultMap>
+
+    <!--List<Notice> selectAllNotice();
+
+    Notice selectNoticeById(Integer id);
+
+    Integer insertNoticeByObj(Notice notice);
+
+    Integer updateNoticeByObj(Notice notice);
+
+    Boolean deleteNoticeById(Integer id);-->
+
+    <select id="selectAllNotice" resultMap="NoticeResultMap">
+        select * from tb_notice
+    </select>
+
+    <select id="selectNoticeById" resultMap="NoticeResultMap">
+        select * from tb_notice where id=#{id}
+    </select>
+
+    <insert id="insertNoticeByObj">
+        insert into tb_notice(id,username,date,title,content,qualify)
+        values(#{id},#{username},#{date},#{title},#{content},#{qualify})
+    </insert>
+
+    <update id="updateNoticeByObj">
+        update tb_notice set
+        username=#{username},
+        date=#{date},
+        title=#{title},
+        content=#{content},
+        qualify=#{qualify}
+        where id=#{id}
+    </update>
+
+    <delete id="deleteNoticeById">
+        delete from tb_notice where id=#{id}
+    </delete>
+
+
+    <!--List<Notice> selectNoticesByTitle(String title);-->
+    <select id="selectNoticesByTitle" resultMap="NoticeResultMap">
+        select * from tb_notice
+        where 1=1
+        <if test="title!=null and title!=''">
+            and title like concat('%',#{title},'%')
+        </if>
+    </select>
+</mapper>

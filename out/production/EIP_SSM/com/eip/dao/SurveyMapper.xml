@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8" ?> <!DOCTYPE mapper  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.eip.dao.SurveyMapper">
+    <resultMap id="SurveyResultMap" type="com.eip.pojo.Survey">
+        <id column="id" property="id"/>
+        <result column="Q1" property="Q1"/>
+        <result column="Q2" property="Q2"/>
+        <result column="Q3" property="Q3"/>
+        <result column="Q4" property="Q4"/>
+        <result column="Q5" property="Q5"/>
+        <result column="Q6" property="Q6"/>
+        <result column="Q7" property="Q7"/>
+    </resultMap>
+
+    <!--List<Survey> selectAllSurvey();-->
+    <select id="selectAllSurvey" resultMap="SurveyResultMap">
+        select * from tb_survey
+    </select>
+
+    <!--Integer insertSurveyByObj(Survey survey);-->
+    <insert id="insertSurveyByObj">
+        insert into tb_survey(Q1,Q2,Q3,Q4,Q5,Q6,Q7)
+        values(#{Q1},#{Q2},#{Q3},#{Q4},#{Q5},#{Q6},#{Q7})
+    </insert>
+</mapper>

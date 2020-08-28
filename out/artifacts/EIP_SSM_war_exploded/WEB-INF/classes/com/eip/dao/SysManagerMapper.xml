@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8" ?> <!DOCTYPE mapper  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.eip.dao.SysManagerMapper">
+    <!--SystemManager selectSysManagerByNameAndPwd(@Param("SMName") String name, @Param ("SMPwd") String Pwd);-->
+    <select id="selectSysManagerByNameAndPwd" resultType="com.eip.pojo.SystemManager">
+        select * from tb_SysManager where SMName=#{SMName} and SMPwd=#{SMPwd}
+    </select>
+</mapper>

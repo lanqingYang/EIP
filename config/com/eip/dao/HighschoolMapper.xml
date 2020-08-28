@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8" ?> <!DOCTYPE mapper  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.eip.dao.HighschoolMapper">
+    <resultMap id="HighschoolResultMap" type="com.eip.pojo.Highschool">
+        <id column="HSId" property="HSId"/>
+        <result column="HSName" property="HSName"/>
+        <result column="HSAddress" property="HSAddress"/>
+        <result column="HSDescription" property="HSDescription"/>
+        <result column="HSStuffs" property="HSStuffs"/>
+        <result column="HSTeachers" property="HSTeachers"/>
+        <result column="HSCapacity" property="HSCapacity"/>
+        <result column="HSCapacityYears" property="HSCapacityYears"/>
+        <result column="HSPointX" property="HSPointX"/>
+        <result column="HSPointY" property="HSPointY"/>
+    </resultMap>
+
+    <!--List<Highschool> selectHighschools();-->
+    <select id="selectHighschools" resultMap="HighschoolResultMap">
+        select * from tb_highschool
+    </select>
+
+    <!--Highschool selectHighschoolById(Integer id);-->
+    <select id="selectHighschoolById" resultMap="HighschoolResultMap">
+        select * from tb_highschool where HSId=#{id}
+    </select>
+
+    <!--Integer updateHighschoolByObj(Highschool Highschool);-->
+    <update id="updateHighschoolByObj">
+        update tb_highschool set
+        <if test="HSName!=null and HSName !=''">
+            HSName = #{HSName},
+        </if>
+        HSAddress = #{HSAddress},
+        HSDescription = #{HSDescription},
+        HSStuffs = #{HSStuffs},
+        HSTeachers = #{HSTeachers},
+        HSCapacity = #{HSCapacity},
+        HSCapacityYears = #{HSCapacityYears},
+        HSPointX = #{HSPointX},
+        HSPointY = #{HSPointY}
+        where HSId=#{HSId}
+    </update>
+
+    <!--Integer insertHighschoolByObj(Highschool highschool);-->
+    <insert id="insertHighschoolByObj">
+        insert into tb_highschool(HSName,HSAddress,HSDescription,HSStuffs,HSTeachers,HSCapacity,HSCapacityYears,HSPointX,HSPointY)
+        values(#{HSName},#{HSAddress},#{HSDescription},#{HSStuffs},#{HSTeachers},#{HSCapacity},#{HSCapacityYears},#{HSPointX},#{HSPointY})
+    </insert>
+
+    <!--Boolean deleteHighschoolById(Integer id);-->
+    <delete id="deleteHighschoolById">
+        delete from tb_highschool where HSId = #{id}
+    </delete>
+
+    <!--List<Highschool> selectHighschoolsByName(String name);-->
+    <select id="selectHighschoolsByName" resultMap="HighschoolResultMap">
+        select * from tb_highschool
+        where HSName like concat('%',#{name},'%')
+    </select>
+</mapper>

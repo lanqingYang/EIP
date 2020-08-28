@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE configuration  PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-config.dtd">
+<configuration>
+    <settings>
+        <!--配置驼峰命名，默认值false-->
+        <setting name="mapUnderscoreToCamelCase" value="true"/>
+        <!--配置log4j2日志-->
+        <setting name="logImpl" value="LOG4J2"/>
+    </settings>
+</configuration>

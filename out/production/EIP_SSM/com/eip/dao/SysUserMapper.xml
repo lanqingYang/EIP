@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8" ?> <!DOCTYPE mapper  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.eip.dao.SysUserMapper">
+
+    <resultMap id="UserResultMap" type="com.eip.pojo.SystemUser">
+        <id column="SUId" property="SUId"/>
+        <result column="SUName" property="SUName"/>
+        <result column="SUPwd" property="SUPwd"/>
+        <result column="SUMail" property="SUMail"/>
+        <result column="SUTel" property="SUTel"/>
+        <result column="SUQuestion" property="SUQuestion"/>
+        <result column="SUAnswer" property="SUAnswer"/>
+        <result column="SUChar" property="SUChar"/>
+        <result column="SUImage" property="SUImage"/>
+        <result column="SUQualify" property="SUQualify"/>
+        <result column="SUVerify" property="SUVerify"/>
+    </resultMap>
+    <!--List<SystemUser> selectUsers();-->
+    <select id="selectUsers" resultMap="UserResultMap">
+        select * from tb_SysUser
+    </select>
+
+    <!--SystemUser selectUserByName(@Param ("SUName") String SUName);-->
+    <select id="selectUserByName" resultType="com.eip.pojo.SystemUser">
+        select * from tb_SysUser where SUName=#{SUName}
+    </select>
+
+    <!--SystemUser selectUserById(@Param ("SUId") Integer SUId);-->
+    <select id="selectUserById" resultMap="UserResultMap">
+        select * from tb_SysUser where SUId=#{SUId}
+    </select>
+
+    <!--SystemUser selectUserByNameAndPwd(@Param ("SUName") String SUName,@Param ("SUPwd") String SUPwd);-->
+    <select id="selectUserByNameAndPwd" resultType="com.eip.pojo.SystemUser">
+        select * from tb_SysUser where SUName=#{SUName} and SUPwd=#{SUPwd}
+    </select>
+
+    <!--Integer insertUserByObject(SystemUser systemUser);-->
+    <insert id="insertUserByObject">
+        insert into tb_SysUser(SUName,SUPwd,SUMail,SUTel,SUQuestion,SUAnswer,SUChar,SUImage,SUQualify,SUVerify)
+        values(#{SUName},#{SUPwd},#{SUMail},#{SUTel},#{SUQuestion},#{SUAnswer},#{SUChar},#{SUImage},#{SUQualify},#{SUVerify})
+    </insert>
+
+    <!--Integer updateUserByObject(SystemUser systemUser);-->
+    <update id="updateUserByObject">
+        update tb_SysUser set
+        <if test="SUName!=null and SUName !=''">
+            SUName = #{SUName},
+        </if>
+        <if test="SUPwd!=null and SUPwd !=''">
+            SUPwd = #{SUPwd},
+        </if>
+        SUMail=#{SUMail},
+        SUTel=#{SUTel},
+        SUQuestion=#{SUQuestion},
+        SUAnswer=#{SUAnswer},
+        SUChar=#{SUChar},
+        SUImage=#{SUImage},
+        <if test="SUQualify!=null">
+        SUQualify=#{SUQualify},
+        </if>
+        <if test="SUVerify!=null">
+        SUVerify=#{SUVerify}
+        </if>
+        where SUId=#{SUId}
+    </update>
+</mapper>
